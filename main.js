@@ -236,12 +236,13 @@ decryptData = function(text, password)
 
     
 pool = new pg.Pool({
-            user: 'postgres',
-            host: '64.227.43.124',
-            database: 'sdstrusoft',
-            password: 'Admin@123456',
-            port: 5432
-        });
+    user: 'sds',
+    host: 'trusoft-db-do-user-1799963-0.b.db.ondigitalocean.com',
+    database: 'sds',
+    password: 'zx6i1msgk0rfrvn7',
+    port: 25060,
+    ssl: true
+});
 
 //Test db connection
 pool.query("SELECT NOW();", (err, res) => {

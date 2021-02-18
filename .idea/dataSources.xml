@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/sdstrusoft</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="trusoft-db@do" uuid="5f06dbdb-8033-4955-a388-6fb4baff9689">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://trusoft-db-do-user-1799963-0.b.db.ondigitalocean.com:25060/defaultdb?sslmode=require</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
