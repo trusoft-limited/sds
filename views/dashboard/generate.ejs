@@ -1,0 +1,298 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SDS</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="/portal/apple-icon.png">
+    <link rel='icon' href='/home/landing/images/favicon.png' type='image/x-icon'>
+
+    <link rel="stylesheet" href="/portal/assets/css/normalize.css">
+    <link rel="stylesheet" href="/portal/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/portal/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/portal/assets/css/themify-icons.css">
+    <link rel="stylesheet" href="/portal/assets/css/flag-icon.min.css">
+    <link rel="stylesheet" href="/portal/assets/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="/portal/assets/css/lib/datatable/dataTables.bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="/portal/assets/css/bootstrap-select.less"> -->
+    <link rel="stylesheet" href="/portal/assets/scss/style.css">
+
+    <link rel="stylesheet" href="/portal/ajax/fonts.css">
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
+</head>
+<body>
+    <!-- Left Panel -->
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
+
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="/sds/dashboard">SDS</a>
+                <a class="navbar-brand hidden" href="/sds/dashboard">SDS</a>
+            </div>
+
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/sds/dashboard"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    </li>
+                    <h3 class="menu-title">CONFIGURATION</h3>
+                    
+                    <% if(role == 'superadmin') { %> 
+                        <li>
+                            <a href="/sds/admin"> <i class="menu-icon fa fa-dashboard"></i>Admin </a>
+                        </li>
+                        <li>
+                            <a href="/sds/users"> <i class="menu-icon fa fa-dashboard"></i>Users </a>
+                        </li>
+                        <li>
+                            <a href="/sds/voucher/create"> <i class="menu-icon fa fa-dashboard"></i>Voucher Denomination </a>
+                        </li>
+                        <li>
+                            <a href="/sds/superadmin/blacklist"> <i class="menu-icon fa fa-dashboard"></i>Blacklist </a>
+                        </li>
+                        <li>
+                            <a href="/sds/ui"> <i class="menu-icon fa fa-dashboard"></i>Voucher Management </a>
+                        </li>
+                    <% }else{ %>
+                        <% if(role == 'admin') { %> 
+                            <li>
+                                <a href="/sds/upload/records"> <i class="menu-icon fa fa-dashboard"></i>Upload Records </a>
+                            </li>
+                        <% }else{ %>
+                            <li>
+                                <a href="/sds/claim/payment"> <i class="menu-icon fa fa-dashboard"></i>Claim Payment </a>
+                            </li>
+
+                            <li>
+                                <a href="/sds/wallet/details"> <i class="menu-icon fa fa-dashboard"></i>Wallet Details </a>
+                            </li>
+
+                            <li class="active">
+                                <a href="/sds/generate/voucher"> <i class="menu-icon fa fa-dashboard"></i>Generate Voucher </a>
+                            </li>
+                        <% } %>
+                    <% } %>
+
+                    <h3 class="menu-title">Password</h3>
+                      <li class="menu-item-has-children dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Password</a>
+                          <ul class="sub-menu children dropdown-menu">
+                              <li><i class="fa fa-bars"></i><a href="/sds/changepassword">Change Password</a></li>
+                          </ul>
+                    </li>
+
+                    <h3 class="menu-title">CLOSE</h3><!-- /.menu-title -->
+                    <li>
+                        <a id="logout_cool" href="/sds/dashboard"> <i class="menu-icon fa fa-dashboard"></i>Logout </a>
+                    </li>
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+    </aside><!-- /#left-panel -->
+
+    <!-- Left Panel -->
+
+    <!-- Right Panel -->
+
+    <div id="right-panel" class="right-panel">
+
+        <!-- Header-->
+        <header id="header" class="header">
+
+            <div class="header-menu">
+
+                <div class="col-sm-7">
+                    <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
+                    <div class="header-left">
+                        
+                        
+                    </div>
+                </div>
+            </div>
+
+        </header><!-- /header -->
+
+      <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1 id='uuname'><%= name %></h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li id="time_update" class="active"><%= time %></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+      </div>
+
+        <div class="content mt-3">
+            <div class="animated fadeIn">
+                <div class="row">
+
+                <div id="display" class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Vouchers</strong>
+                        </div>
+                        <div class="card-body">
+                  <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Batch Number</th>
+                        <th>Amount</th>
+                        <th>Quantity</th>
+                        <th>Download</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% if(ej) { %> 
+                            <% for(var i = (ej.length - 1); i >= 0; i-- ) { %>
+                                <tr>
+                                    <td><%= ej[i].batchnumber %></td>
+                                    <td id="at<%= ej[i].id %>"></td>
+                                    <script>
+                                        var amt = '<%= ej[i].amount %>';
+                                        var id = 'at<%= ej[i].id %>';
+                                        var t = parseFloat(amt);
+                                        var famt = (t).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                        document.getElementById(id).innerHTML = "NGN " + famt;
+                                    </script>
+                                    <td><%= ej[i].quantity %></td>
+                                    <td><a href="<%= ej[i].file %>" target="_blank"><i class="fa fa-download"></i> Download Batch</a></td>
+                                </tr>
+                            <% } %>
+                        <% } %>
+                    </tbody>
+                  </table>
+                        </div>
+
+                        <button style="float: center;" onclick="newHost()" type="button" class="btn btn-outline-primary">Generate Voucher</button>
+                    
+
+
+                        
+
+
+                    
+                    </div>
+
+
+                    
+                </div>
+                
+                <div id="editnew1" style="display:none" class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">New Vouchers</strong>
+                        </div>
+                        <div class="card-body">
+                          <!-- Credit Card -->
+                          <div id="pay-invoice">
+                                <div>
+                                        <button id="newLabelClick" type="button" class="btn btn-lg btn-info btn-block">
+                                            <span id="payment-button-amount">Add Voucher</span>
+                                        </button>
+                                    </div>
+
+                              <div id="labBtn" class="card-body">
+                                  <form id="fdet" action="" method="post" >
+                                      
+                                      
+
+                                    <!--<div class="form-group">
+                                        <label for="cc-payment" class="control-label mb-1">Convenience Fee</label>
+                                        <input id="conveniencefee" name="cc-payment" type="text" class="form-control" aria-required="true" aria-invalid="false" maxlength="50" value="">
+                                    </div>
+                                      
+                                    <div class="form-group">
+                                        <label for="cc-ssl" class="control-label mb-1">Print Validation</label>
+                                        <select style="color: #001e33; font-weight: bold;" name="cc-ssl" id="printvalidation" class="form-control">
+                                            <option style="color: #001e33; font-weight: bold;" value="true">True</option>
+                                            <option style="color: #001e33; font-weight: bold;" value="false">False</option>
+                                        </select>
+                                    </div>-->
+                                    
+
+                                    
+
+
+                              </div>
+                              
+                          </div>
+
+                        </div>
+                    </div> <!-- .card -->
+                    <hr><hr>
+                    <div>
+                      <button id="payment-button" style="float: center;" onclick="backHost()" type="button" class="btn btn-lg btn-info btn-block">Generate</button>
+                    </div>
+                    
+                  </div><!--/.col-->
+
+                </form>
+
+                </div><!--/.col-->
+
+
+
+                
+                </div>
+
+                
+            </div><!-- .animated -->
+        </div><!-- .content -->
+
+
+    </div><!-- /#right-panel -->
+
+    <!-- Right Panel -->
+    <p id="ejour"style="display:none"><%= vouchs %></p>
+
+    <script src="/portal/assets/js/vendor/jquery-2.1.4.min.js"></script>
+    <script src="/portal/assets/js/popper.min.js"></script>
+    <script src="/portal/assets/js/plugins.js"></script>
+    <script src="/portal/assets/js/main.js"></script>
+
+
+    <script src="/portal/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="/portal/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="/portal/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="/portal/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script src="/portal/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="/portal/assets/js/lib/data-table/pdfmake.min.js"></script>
+    <script src="/portal/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="/portal/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="/portal/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="/portal/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script src="/portal/assets/js/lib/data-table/datatables-init.js"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+          $('#bootstrap-data-table-export').DataTable();
+        } );
+    </script>
+    <script src="/portal/ajax/sweetalert.js"></script>
+    <script src="/portal/ajax/generates.js"></script>
+
+    
+
+
+
+</body>
+</html>

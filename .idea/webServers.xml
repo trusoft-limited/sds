@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="b441979c-4078-4ddc-8e20-4b657106ebad" name="sds" url="http://smartdepositscheme.com">
+        <fileTransfer rootFolder="/root/sds" accessType="SFTP" host="smartdepositscheme.com" port="22" sshConfigId="d72090ca-bf6a-471a-bf13-d1dd75377af2" sshConfig="sds">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

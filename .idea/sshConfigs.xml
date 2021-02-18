@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="smartdepositscheme.com" id="d72090ca-bf6a-471a-bf13-d1dd75377af2" port="22" customName="sds" nameFormat="CUSTOM" username="root">
+        <option name="customName" value="sds" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>
