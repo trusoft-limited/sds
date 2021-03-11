@@ -236,12 +236,13 @@ decryptData = function(text, password)
 
     
 pool = new pg.Pool({
-    user: 'sds',
+    user: 'doadmin',
     host: 'trusoft-db-do-user-1799963-0.b.db.ondigitalocean.com',
     database: 'sds',
-    password: 'zx6i1msgk0rfrvn7',
+    password: 'etqkpkhc9qus2ffb',
     port: 25060,
-    ssl: true
+    ssl: true,
+    rejectUnauthorized: false
 });
 
 //Test db connection

@@ -38,7 +38,7 @@ async function authenticate(){
         "wallet": "33049641",
         "username": "finance@smartdepositscheme.com",
         "password": "SDSitexWED2021",
-        "identifier": "anyscope"
+        "identifier": "itexb2b"//"anyscope"
     };
     const resp = await send("http://197.253.19.76:8019/api/vas/authenticate/me", credentials);
     if(!resp.responseCode || resp.responseCode !== "00")
@@ -52,7 +52,7 @@ async function signSend(uri, data){
     //check if token still valid
     if(auth == null || authExp < Date.now())
         await authenticate();
-    const apiKey = "39da73677f663233bfa9d43276e74170";
+    const apiKey = "b93cef086a4943431342c7fd53b7502d";//"39da73677f663233bfa9d43276e74170";
     const hash = crypto.HmacSHA256(JSON.stringify(data,null,4), apiKey);
     return send(uri, data, ['Token: '+auth, 'signature: '+hash]);
 }

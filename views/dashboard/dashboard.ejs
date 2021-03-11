@@ -57,11 +57,11 @@
                         <li>
                             <a href="/sds/superadmin/blacklist"> <i class="menu-icon fa fa-dashboard"></i>Blacklist </a>
                         </li>
-                        <li>
-                            <a href="/sds/ui"> <i class="menu-icon fa fa-dashboard"></i>Voucher Management </a>
-                        </li>
                     <% }else{ %>
-                        <% if(role == 'admin') { %> 
+                        <% if(role == 'admin') { %>
+                            <li>
+                                <a href="/sds/ui"> <i class="menu-icon fa fa-dashboard"></i>Voucher Management </a>
+                            </li>
                             <li>
                                 <a href="/sds/upload/records"> <i class="menu-icon fa fa-dashboard"></i>Upload Records </a>
                             </li>
