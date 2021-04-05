@@ -59,6 +59,9 @@
                         <li>
                             <a href="/sds/superadmin/blacklist"> <i class="menu-icon fa fa-dashboard"></i>Blacklist </a>
                         </li>
+                        <li>
+                            <a href="/sds/ui"> <i class="menu-icon fa fa-dashboard"></i>Voucher Management </a>
+                        </li>
                     <% }else{ %>
                         <% if(role == 'admin') { %>
                             <li>
@@ -162,6 +165,9 @@
                         <th>State</th>
                         <th>Status</th>
                         <th>DATETIME</th>
+                        <th>Beneficiary</th>
+                        <th>Reference</th>
+                        <th>USSD Session</th>
                         <th>Action</th>
                         <th>Action</th>
                       </tr>
@@ -182,6 +188,9 @@
                                     <% } %>
                                     <td><%= ej[i].status %></td>
                                     <td><%= ej[i].storeusedtime %></td>
+                                    <td><%= ej[i].beneficiary %></td>
+                                    <td><%= ej[i].transferref %></td>
+                                    <td><%= ej[i].ussdsessionid %></td>
                                     <% if(usertype == 'Checker') { %>
                                         <% if(ej[i].dispute) { %>
                                             <td><button onclick="confirmAction('<%= ej[i].id %>');" type="button" class="btn btn-outline-success">Confirm Action</button></td>

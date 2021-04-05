@@ -97,7 +97,7 @@ exports.transfer = async function transfer(ne, ref, remark) {
         'narration': remark,
         'clientReference': ref
     };
-    const resp = signSend(uri, body);
+    const resp = await signSend(uri, body);
     if (resp.responseCode === '00')
         return resp.data;
     else {

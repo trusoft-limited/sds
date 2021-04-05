@@ -93,6 +93,7 @@ logger = winston.createLogger({
 
 app.use(requestIp.mw());
 app.use("/", express.static(path.join(__dirname, "public")));
+app.use("/logs", express.static(path.join(__dirname, "logs/info")));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
@@ -169,12 +170,12 @@ getDateTimeSpec = function()
     }
 
     
-getDateTime = function()
+getDateTime = function(time = null)
     {
         var str = "";
-        var currentTime = new Date();
+        var currentTime = time || new Date();
         var year = currentTime.getFullYear();
-        var mnt = currentTime.getMonth() + 1;
+        var mnt = currentTime.getMonth();
         var day = currentTime.getDate();
         var hours = currentTime.getHours();
         var minutes = currentTime.getMinutes();
@@ -187,18 +188,21 @@ getDateTime = function()
         {
             day = "0" + day
         }
+        if (hours < 10) {
+            hours = "0" + hours;
+        }
         if (minutes < 10) {
             minutes = "0" + minutes;
         }
         if (seconds < 10) {
             seconds = "0" + seconds;
         }
-        str += year + ":" + mnt + ":" + day + ":" + hours + ":" + minutes + ":" + seconds + " ";
-        if(hours > 11){
-            str += "PM";
-        } else {
-            str += "AM";
-        }
+        str += year + "-" + mnt + "-" + day + " " + hours + ":" + minutes + ":" + seconds + " ";
+        // if(hours > 11){
+        //     str += "PM";
+        // } else {
+        //     str += "AM";
+        // }
         return str;
     }
 
@@ -279,8 +283,8 @@ var ussd = require("./routes/login_api/ussd.js");
 app.use("/api/consume-ussd/", ussd);
 var ussd2 = require("./routes/login_api/ussd2.js");
 app.use("/api/consume-ussd2/", ussd2);
-var ussd2 = require("./routes/login_api/ussd3.js");
-app.use("/api/consume-ussd3/", ussd2);
+var ussd3 = require("./routes/login_api/ussd3.js");
+app.use("/api/consume-ussd3/", ussd3);
 
 //Dashboard
 var screen = require("./routes/dashboard/sds.js");
