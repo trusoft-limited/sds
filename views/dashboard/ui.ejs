@@ -160,6 +160,7 @@
                         <th>Dealer</th>
                         <th>Amount</th>
                         <th>Pin</th>
+                        <th>Batch/Serial Number</th>
                         <th>Account</th>
                         <th>Phone Number</th>
                         <th>State</th>
@@ -179,6 +180,7 @@
                                     <td><%= ej[i].name %></td>
                                     <td>NGN <%= ej[i].amount %></td>
                                     <td><%= ej[i].pin %></td>
+                                    <td><%= ej[i].batchnumber %><br/><%= ej[i].serialnumber %></td>
                                     <td><%= ej[i].accountnumber %></td>
                                     <td><%= ej[i].phonenumber %></td>
                                     <% if(ej[i].used == true) { %>

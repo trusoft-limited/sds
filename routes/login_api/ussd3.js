@@ -52,7 +52,36 @@ const error11 = 'Invalid bank account. Please check and input the proper bank ac
 const error12 = 'Invalid bank code. Please check the voucher for the proper bank code and try again.';
 const error13 = 'System error, please try again later.';
 
-var bankCodes = { "232": "000001", "082": "000002", "214": "000003", "033": "000004", "301": "000006", "070": "000007", "076": "000008", "023": "000009", "050": "000010", "215": "000011", "221": "000012", "058": "000013", "044": "000014", "057": "000015", "011": "000016", "035": "000017", "032": "000018", "030": "000020", "068": "000021", "100": "000022", "101": "000023", "102": "000025", "526": "090004" };
+var bankCodes = {
+    "232": "000001", // sterling
+    "082": "000002", // keystone
+    "214": "000003", // fcmb
+    "033": "000004", // uba
+    "301": "000006", // jaiz
+    "070": "000007", // fidelity
+    "076": "000008", // polaris
+    "023": "000009", // citi
+    "050": "000010", // eco
+    "215": "000011", // unity
+    "221": "000012", // stanbic
+    "058": "000013", // gtb
+    "044": "000014", // access
+    "057": "000015", // zenith
+    "011": "000016", // fbn
+    "035": "000017", // wema
+    "032": "000018", // union
+    "030": "000020", // heritage
+    "068": "000021", // standard chartered
+    "100": "000022", // suntrust
+    "101": "000023", // providus
+    //"102": "000025", // titan trust
+    "103": "000027", // globus
+    //"302": "", // taj
+    "501": "400001", // fsdh
+    "559": "060001", // coronation
+    "560": "060002", // fbnquest
+    //"561": "", // nova
+};
 const blocked = 'valid/blocked';
 const used = 'valid/used-approved';
 const pending = 'valid/used-pending';
@@ -132,12 +161,12 @@ async function useVoucher(phone, pin, account, bank, sessionId) {
             await pool.query(qry, [failed + ':' + trf.failure, getDateTime(), pin, null]);
             return 'END ' + error8;
         } // success
-        await pool.query(qry, [used, getDateTime(), pin, trf.reference+'|'+trf.SessionID]);
+        await pool.query(qry, [used, getDateTime(), pin, trf.reference + '|' + trf.SessionID]);
         // const end = Date.now();
         // logger.info(`Finished consume voucher: pin=${pin} in ${(end - start)/1000} seconds at ${new Date().toLocaleString()}`);
         return `END ${success1} ${ne.name}`;
     } catch (err) {
-        logger.error(JSON.stringify(err, ["message", "arguments", "type", "name","stack"]));
+        logger.error(JSON.stringify(err, ["message", "arguments", "type", "name", "stack"]));
         return `END ` + error13;
     }
 }
@@ -146,14 +175,13 @@ function timedOut(req, res, next) {
     if (req.timedout) {
         const end = Date.now();
         logger.info(`voucher timeout: pin=${pin} in ${(end - start) / 1000} seconds`);
-        response = `END ${error7}`;
-
+        res.status(200);
         res.set("Content-Type: text/plain");
-        res.send(response);
+        res.send(`END ${error7}`);
     } else next();
 }
 
-router.post("/", timeout('17s'), timedOut, async function (req, res) {
+router.post("/", timeout('14s', { respond: false }), timedOut, async function (req, res) {
     let { sessionId, serviceCode, phoneNumber, text } = req.body;
     logger.info(`voucher start: ${phoneNumber} as ${text} at ${Date().toLocaleString()}`);
     const start = Date.now();

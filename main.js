@@ -20,7 +20,7 @@ nodemailer = require("nodemailer");
 smtpTransport = require('nodemailer-smtp-transport');
 randomstring = require("randomstring");
 PDFDocument = require('pdfkit');
-doc = new PDFDocument({"size": 'A4', "margins": 20});
+doc = new PDFDocument({ "size": 'A4', "margins": 20 });
 cryptoRandomString = require('crypto-random-string');
 parseString = require('xml2js').parseString;
 crypto = require('crypto');
@@ -29,7 +29,7 @@ domain = "localhost:9800";
 
 //BIZZDESK
 transporter = nodemailer.createTransport({
-	host: 'smtp.gmail.com',
+    host: 'smtp.gmail.com',
     port: 587,
     secure: false,
     auth: {
@@ -64,27 +64,27 @@ logger = winston.createLogger({
         new (winston.transports.File)({
             name: 'info-file',
             filename: 'logs/info/filelog-info.log',
-            maxsize:'10000000', 
-            maxFiles:'10', 
-            timestamp:true, 
+            maxsize: '10000000',
+            maxFiles: '10',
+            timestamp: true,
             colorize: true,
             level: 'info'
         }),
         new (winston.transports.File)({
             name: 'error-file',
             filename: 'logs/error/filelog-error.log',
-            maxsize:'10000000', 
-            maxFiles:'10', 
-            timestamp:true, 
+            maxsize: '10000000',
+            maxFiles: '10',
+            timestamp: true,
             colorize: true,
             level: 'error'
         }),
         new (winston.transports.File)({
             name: 'debug-file',
             filename: 'logs/debug/filelog-debug.log',
-            maxsize:'10000000', 
-            maxFiles:'10', 
-            timestamp:true, 
+            maxsize: '10000000',
+            maxFiles: '10',
+            timestamp: true,
             colorize: true,
             level: 'debug'
         })
@@ -97,8 +97,7 @@ app.use("/logs", express.static(path.join(__dirname, "logs/info")));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-datetime = function()
-{
+datetime = function () {
     var str = "";
     var currentTime = new Date();
     var year = currentTime.getFullYear();
@@ -107,12 +106,10 @@ datetime = function()
     var hours = currentTime.getHours();
     var minutes = currentTime.getMinutes();
     var seconds = currentTime.getSeconds();
-    if(mnt < 10)
-    {
+    if (mnt < 10) {
         mnt = "0" + mnt;
     }
-    if(day < 10)
-    {
+    if (day < 10) {
         day = "0" + day
     }
     if (minutes < 10) {
@@ -121,124 +118,111 @@ datetime = function()
     if (seconds < 10) {
         seconds = "0" + seconds;
     }
-    str += year + ":" + mnt + ":" + day + " " + hours + ":" + minutes + ":" + seconds + " ";
-    if(hours > 11){
-        str += "PM";
-    } else {
-        str += "AM";
-    }
+    str += year + ":" + mnt + ":" + day + " " + hours + ":" + minutes + ":" + seconds;
+    // if (hours > 11) {
+    //     str += "PM";
+    // } else {
+    //     str += "AM";
+    // }
     return str;
 }
 
-compareDate = function(sessionDecrypted, fromDatabase)
-    {
-        if (sessionDecrypted === fromDatabase)
-            return true;
-        else
-            return false;
+compareDate = function (sessionDecrypted, fromDatabase) {
+    if (sessionDecrypted === fromDatabase)
+        return true;
+    else
+        return false;
+}
+
+getDateTimeSpec = function () {
+    var str = "";
+    var currentTime = new Date();
+    var year = currentTime.getFullYear();
+    var mnt = currentTime.getMonth() + 1;
+    var day = currentTime.getDate();
+    var hours = currentTime.getHours() + 1;
+    var minutes = currentTime.getMinutes();
+    var seconds = currentTime.getSeconds();
+    if (mnt < 10) {
+        mnt = "0" + mnt;
     }
-
-getDateTimeSpec = function()
-    {
-        var str = "";
-        var currentTime = new Date();
-        var year = currentTime.getFullYear();
-        var mnt = currentTime.getMonth() + 1;
-        var day = currentTime.getDate();
-        var hours = currentTime.getHours() + 1;
-        var minutes = currentTime.getMinutes();
-        var seconds = currentTime.getSeconds();
-        if(mnt < 10)
-        {
-            mnt = "0" + mnt;
-        }
-        if(day < 10)
-        {
-            day = "0" + day
-        }
-        if (hours < 10) {
-            hours = "0" + hours;
-        }
-        if (minutes < 10) {
-            minutes = "0" + minutes;
-        }
-        if (seconds < 10) {
-            seconds = "0" + seconds;
-        }
-        str += year + "-" + mnt + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
-        return str;
+    if (day < 10) {
+        day = "0" + day
     }
-
-    
-getDateTime = function(time = null)
-    {
-        var str = "";
-        var currentTime = time || new Date();
-        var year = currentTime.getFullYear();
-        var mnt = currentTime.getMonth();
-        var day = currentTime.getDate();
-        var hours = currentTime.getHours();
-        var minutes = currentTime.getMinutes();
-        var seconds = currentTime.getSeconds();
-        if(mnt < 10)
-        {
-            mnt = "0" + mnt;
-        }
-        if(day < 10)
-        {
-            day = "0" + day
-        }
-        if (hours < 10) {
-            hours = "0" + hours;
-        }
-        if (minutes < 10) {
-            minutes = "0" + minutes;
-        }
-        if (seconds < 10) {
-            seconds = "0" + seconds;
-        }
-        str += year + "-" + mnt + "-" + day + " " + hours + ":" + minutes + ":" + seconds + " ";
-        // if(hours > 11){
-        //     str += "PM";
-        // } else {
-        //     str += "AM";
-        // }
-        return str;
+    if (hours < 10) {
+        hours = "0" + hours;
     }
-
-    
-encryptData = function(text, password) 
-    { 
-        try
-        {
-            var cipher = crypto.createCipher(algorithm, password)
-            var crypted = cipher.update(text,'utf8','hex')
-            crypted += cipher.final('hex');
-            return crypted;
-        }catch(e)
-        {
-            console.log("Cipher encryption Error");
-            return null;
-        }
+    if (minutes < 10) {
+        minutes = "0" + minutes;
     }
-
-
-decryptData = function(text, password) 
-    { 
-        try
-        {
-            var decipher = crypto.createDecipher(algorithm, password)
-            var dec = decipher.update(text,'hex','utf8')
-            dec += decipher.final('utf8');
-            return dec;
-        }catch(e)
-        {
-            console.log("Cipher decryption Error");
-            return null;
-        }
+    if (seconds < 10) {
+        seconds = "0" + seconds;
     }
+    str += year + "-" + mnt + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+    return str;
+}
 
-    
+
+getDateTime = function (time = null) {
+    var str = "";
+    var currentTime = time || new Date();
+    var year = currentTime.getFullYear();
+    var mnt = currentTime.getMonth() + 1;
+    var day = currentTime.getDate();
+    var hours = currentTime.getHours();
+    var minutes = currentTime.getMinutes();
+    var seconds = currentTime.getSeconds();
+    if (mnt < 10)
+        mnt = "0" + mnt;
+
+    if (day < 10)
+        day = "0" + day
+
+    if (hours < 10)
+        hours = "0" + hours;
+
+    if (minutes < 10)
+        minutes = "0" + minutes;
+
+    if (seconds < 10)
+        seconds = "0" + seconds;
+
+    str += year + "-" + mnt + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+    // if(hours > 11){
+    //     str += "PM";
+    // } else {
+    //     str += "AM";
+    // }
+    return str;
+}
+
+
+encryptData = function (text, password) {
+    try {
+        var cipher = crypto.createCipher(algorithm, password)
+        var crypted = cipher.update(text, 'utf8', 'hex')
+        crypted += cipher.final('hex');
+        return crypted;
+    } catch (e) {
+        console.log("Cipher encryption Error");
+        return null;
+    }
+}
+
+
+decryptData = function (text, password) {
+    try {
+        var decipher = crypto.createDecipher(algorithm, password)
+        var dec = decipher.update(text, 'hex', 'utf8')
+        dec += decipher.final('utf8');
+        return dec;
+    } catch (e) {
+        console.log("Cipher decryption Error");
+        return null;
+    }
+}
+
+
 pool = new pg.Pool({
     user: 'doadmin',
     host: 'trusoft-db-do-user-1799963-0.b.db.ondigitalocean.com',
@@ -251,12 +235,10 @@ pool = new pg.Pool({
 
 //Test db connection
 pool.query("SELECT NOW();", (err, res) => {
-    if (err) 
-    {
+    if (err) {
         logger.info("Database connection error: " + err + ". Time: " + new Date().toLocaleString());
     }
-    else
-    {
+    else {
         logger.info("Server is now connected to postgresql database.... Time: " + new Date().toLocaleString());
     }
     //pool.end();
@@ -265,9 +247,9 @@ pool.query("SELECT NOW();", (err, res) => {
 //Check for favicon
 function ignoreFavicon(req, res, next) {
     if (req.originalUrl === '/favicon.ico') {
-      res.status(204).json({nope: true});
+        res.status(204).json({ nope: true });
     } else {
-      next();
+        next();
     }
 }
 
@@ -303,76 +285,67 @@ app.use("/sds/", screen);
     }
 });*/
 
-app.get("/", function(req, res)
-{
-    try
-    {
+app.get("/", function (req, res) {
+    try {
         logger.info("Landing Page Served to: " + req.clientIp);
         res.status(200).render("home/landing", {});
-    }catch(e)
-    {
+    } catch (e) {
         logger.info(e);
         logger.error("SDS Home Page could not be served to " + req.clientIp);
         res.status(200).send("We are currently maintaining this application. Retry later");
     }
 });
 
-app.get("/register", function(req, res)
-{
-    try
-    {
+app.get("/register", function (req, res) {
+    try {
         var qry = "DELETE FROM tokens WHERE token = $1";
         pool.query(qry, [req.cookies.token_tcm], (err, result) => {
-            if (err) 
-            {
+            if (err) {
                 logger.error("SDS Register Session Database Issue " + req.clientIp);
                 res.redirect("/");
-            }else
-            {
-                if(req.cookies.token_tcm)
-                    logger.info("SDS Logout for client session: " + req.cookies.token_tcm 
-                    + " Ip: " +  req.clientIp + "  " + new Date().toLocaleString());
+            } else {
+                if (req.cookies.token_tcm)
+                    logger.info("SDS Logout for client session: " + req.cookies.token_tcm
+                        + " Ip: " + req.clientIp + "  " + new Date().toLocaleString());
                 else
                     logger.info("SDS Register Page Successfully saved to " + req.clientIp + "  " + new Date().toLocaleString());
                 res.clearCookie('token_tcm');
-                res.status(200).render("home/welcome", {abbre: req.signedCookies['abbreviation'], 
-                fullname: req.signedCookies['fullname'], appname: req.signedCookies['appname'], 
-                compabbr: req.signedCookies['compabbr']});
+                res.status(200).render("home/welcome", {
+                    abbre: req.signedCookies['abbreviation'],
+                    fullname: req.signedCookies['fullname'], appname: req.signedCookies['appname'],
+                    compabbr: req.signedCookies['compabbr']
+                });
             }
         });
-    }catch(e)
-    {
+    } catch (e) {
         logger.info(e);
         logger.error("SDS Register Page could not be served to " + req.clientIp);
         res.redirect("/");
     }
 });
 
-app.get("/login", function(req, res)
-{
-    try
-    {
+app.get("/login", function (req, res) {
+    try {
         var qry = "DELETE FROM tokens WHERE token = $1";
         pool.query(qry, [req.cookies.token_tcm], (err, result) => {
-            if (err) 
-            {
+            if (err) {
                 logger.error("SDS Login Session Database Issue " + req.clientIp);
                 res.redirect("/");
-            }else
-            {
-                if(req.cookies.token_tcm)
-                    logger.info("SDS Logout for client session: " + req.cookies.token_tcm 
-                    + " Ip: " +  req.clientIp + "  " + new Date().toLocaleString());
+            } else {
+                if (req.cookies.token_tcm)
+                    logger.info("SDS Logout for client session: " + req.cookies.token_tcm
+                        + " Ip: " + req.clientIp + "  " + new Date().toLocaleString());
                 else
                     logger.info("SDS Login Page Successfully saved to " + req.clientIp + "  " + new Date().toLocaleString());
                 res.clearCookie('token_tcm');
-                res.status(200).render("login/login", {abbre: req.signedCookies['abbreviation'], 
-                fullname: req.signedCookies['fullname'], appname: req.signedCookies['appname'], 
-                compabbr: req.signedCookies['compabbr']});
+                res.status(200).render("login/login", {
+                    abbre: req.signedCookies['abbreviation'],
+                    fullname: req.signedCookies['fullname'], appname: req.signedCookies['appname'],
+                    compabbr: req.signedCookies['compabbr']
+                });
             }
         });
-    }catch(e)
-    {
+    } catch (e) {
         logger.info(e);
         logger.error("SDS Login Page could not be served to " + req.clientIp);
         res.redirect("/");
@@ -381,15 +354,13 @@ app.get("/login", function(req, res)
 
 // console.log(encryptData("Admin@123456", passworddb));
 
-app.all("*", function(req, res)
-{
+app.all("*", function (req, res) {
     logger.info(req.url)
     logger.info("Wrong URL. Redirecting to home. From: " + req.clientIp + ". Time: " + new Date().toLocaleString());
     res.redirect("/");
 });
 
-app.listen(PORT, function()
-{
+app.listen(PORT, function () {
     logger.info("SDS APPLICATION UP ON " + PORT + ". Time: " + new Date().toLocaleString());
 });
 
