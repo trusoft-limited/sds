@@ -241,8 +241,10 @@ pool = new pg.Pool({
     database: 'sds',
     password: 'etqkpkhc9qus2ffb',
     port: 25060,
-    ssl: true,
-    rejectUnauthorized: false
+    ssl: {
+        rejectUnauthorized: false, 
+        ca: fs.readFileSync("ca-certificate.crt").toString()
+    }
 });
 
 //Test db connection

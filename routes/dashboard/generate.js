@@ -96,7 +96,6 @@ router.get("/", function (req, res) {
     }
 });
 
-
 router.post("/", function (req, res) {
     console.log(req.body);
     try {
@@ -166,8 +165,8 @@ router.post("/", function (req, res) {
 
                                     var bal = parseFloat(dets.rows[0].json[0].balance);
                                     if (total > bal) {
-                                        logger.error("SDS User   Post Session Issue " + req.clientIp);
-                                        res.status(500).send({ "status": 500, "message": "Please Credit your account" });
+                                        logger.error("SDS User Post Session Issue " + req.clientIp);
+                                        res.status(500).send({ "status": 500, "message": "Please credit your account" });
                                     } else {
                                         var rans = randomstring.generate({
                                             length: 9,
