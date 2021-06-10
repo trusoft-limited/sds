@@ -4,8 +4,8 @@ router.get("/", function(req, res)
 {
     try
     {
-        var qry = "SELECT * FROM tokens WHERE token = $1 AND role = $2";
-        pool.query(qry, [req.cookies.token_tcm, "admin"], (err, result) => {
+        var qry = "SELECT * FROM tokens WHERE token = $1 AND (role = $2 or role = $3)";
+        pool.query(qry, [req.cookies.token_tcm, "admin", "superadmin"], (err, result) => {
             if (err) 
             {
                 logger.error("SDS Admin Session Database Issue " + req.clientIp + ". Time" +  new Date().toLocaleString());
